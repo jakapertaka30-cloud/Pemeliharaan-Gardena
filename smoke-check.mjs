@@ -1,14 +1,14 @@
 import assert from 'node:assert/strict';
 import { readFile, access } from 'node:fs/promises';
-import { initialRecords } from '../data/maintenance-data.js';
-import { equipment, pmSchedule, getEquipment } from '../js/config.js';
-import { renderKpis } from '../js/dashboard.js';
-import { renderCharts } from '../js/charts.js';
-import { renderTable, populateFilters } from '../js/table.js';
-import { formatDate, formatMoney, formatNumber, escapeHtml } from '../js/utils.js';
+import { initialRecords } from './maintenance-data.js';
+import { equipment, pmSchedule, getEquipment } from './config.js';
+import { renderKpis } from './dashboard.js';
+import { renderCharts } from './charts.js';
+import { renderTable, populateFilters } from './table.js';
+import { formatDate, formatMoney, formatNumber, escapeHtml } from './utils.js';
 
 
-const root = new URL('../', import.meta.url);
+const root = new URL('./', import.meta.url);
 const html = await readFile(new URL('index.html', root), 'utf8');
 
 const requiredIds = [
@@ -24,7 +24,7 @@ const idList = [...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);
 assert.equal(new Set(idList).size, idList.length, 'HTML IDs must be unique');
 for (const id of requiredIds) assert.ok(idList.includes(id), `Missing HTML ID: ${id}`);
 assert.match(html, /<script\s+type="module"\s+src="\.\/app\.js"\s*>/);
-for (const file of ['app.js','style.js','js/config.js','js/dashboard.js','js/charts.js','js/table.js','js/form.js','js/storage.js','js/utils.js','data/maintenance-data.js']) {
+for (const file of ['app.js','style.js','config.js','dashboard.js','charts.js','table.js','form.js','storage.js','utils.js','maintenance-data.js']) {
   await access(new URL(file, root));
 }
 assert.equal(initialRecords.length, 17, 'Seed data should contain 17 rows');
@@ -68,7 +68,7 @@ assert.ok(get('historyBody').innerHTML.includes('data-delete='));
 console.log('PASS: static paths, IDs, module references, seed data, helpers, KPIs, charts, filters, table rendering');
 
 // CRUD behavior checks with lightweight form/dialog mocks.
-const formModule = await import('../js/form.js');
+const formModule = await import('./form.js');
 const formIds = ['maintenanceDialog','maintenanceForm','addMaintenanceBtn','formTitle','dateInput','responseInput','downtimeInput','costInput','closeDialogBtn','cancelBtn','equipmentInput','typeInput','conditionInput','causeInput','actionInput','partsInput','personInput','verificationInput','nextDateInput','historyBody'];
 for (const id of formIds) get(id);
 get('maintenanceForm').reset = () => { for (const id of ['dateInput','conditionInput','causeInput','actionInput','partsInput','personInput','responseInput','downtimeInput','costInput','nextDateInput']) get(id).value=''; };
