@@ -1,24 +1,19 @@
 # Gardena Maintenance Dashboard - Audit Summary
 
-Audit date: 19 November 2026
+## Repository layout
+Semua file aplikasi berada langsung di root repository. Import di `app.js` dan `storage.js` sudah disesuaikan dengan layout tersebut.
 
-## Automated checks passed
-- HTML parsed with strict HTML parser (0 parser errors)
-- Unique HTML IDs and required selectors
-- Relative module import paths verified
-- JavaScript syntax checks (`node --check`)
-- ES module imports
-- Seed data: 17 records, required fields, unique IDs, valid equipment IDs and nonnegative numeric values
-- Equipment catalog: 21 items; PM schedule includes every equipment entry
-- Rendering checks: KPI cards, failure/downtime/parts charts, PM schedule, filters, table rows
-- Smoke checks for adding, editing, and deleting a maintenance record
-- Date field default corrected to local calendar date (not UTC date)
-- Dynamic table output now escapes equipment names/IDs and restricts type/verification classes to allowed values
+## Perbaikan
+- Memperbaiki jalur module import yang sebelumnya menunjuk ke folder `js/` dan `data/` yang tidak ada pada repository ini. Kesalahan ini menyebabkan module gagal dimuat dan dashboard tampil putih.
+- Memperbaiki jalur import dan file path pada `smoke-check.mjs` agar sesuai dengan layout root.
+- Memperbaiki script `npm test` agar menunjuk ke `smoke-check.mjs` di root.
+- Menyamakan dokumentasi struktur project dengan file yang benar-benar berada di repository.
 
-## Not fully verified
-- A full interactive browser test was not completed. Headless Chromium could not run successfully in this environment (launch/runtime restricted), so final browser behavior still needs a manual check after publishing to GitHub Pages.
-- Data remains browser-local (`localStorage`); it is not synced between users/devices and has no backend/database.
+## Batasan pemeriksaan
+- Seluruh jalur import antar-module sudah diverifikasi terhadap file aktual di branch `main`.
+- Smoke test dapat dijalankan dengan Node.js 18+ menggunakan `npm test`.
+- Pengujian browser interaktif penuh belum saya klaim selesai. Setelah Pages menerbitkan commit terbaru, halaman tetap perlu dibuka dan diuji langsung di browser.
+- Data disimpan di `localStorage`; belum tersinkron antarperangkat/pengguna dan belum memakai database/backend.
 
-## GitHub Pages deployment
-Upload the entire project contents to the repository root, then set GitHub Pages to deploy from the `main` branch and `/ (root)`.
-
+## GitHub Pages
+Gunakan branch `main` dan folder `/ (root)`. Pastikan `index.html` tetap berada di root repository.
