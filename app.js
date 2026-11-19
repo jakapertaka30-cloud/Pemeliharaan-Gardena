@@ -1,9 +1,9 @@
 import { injectStyles } from "./style.js";
-import { renderKpis } from "./js/dashboard.js";
-import { renderCharts } from "./js/charts.js";
-import { renderTable,populateFilters,exportCsv } from "./js/table.js";
-import { setupForm } from "./js/form.js";
-import { loadRecords,saveRecords,resetRecords } from "./js/storage.js";
+import { renderKpis } from "./dashboard.js";
+import { renderCharts } from "./charts.js";
+import { renderTable,populateFilters,exportCsv } from "./table.js";
+import { setupForm } from "./form.js";
+import { loadRecords,saveRecords,resetRecords } from "./storage.js";
 injectStyles();
 let records=loadRecords();
 const rerender=()=>{renderKpis(records);renderCharts(records);renderTable(records)};
