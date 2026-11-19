@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PT Gardena Furniture - Maintenance Dashboard</title>
+</head>
+<body>
+<header class="app-header">
+ <div class="brand"><div class="brand-mark">GM</div><div><h1>PT GARDENA FURNITURE</h1><p>Kartu Riwayat Maintenance Digital</p></div></div>
+ <div class="header-actions">
+  <button id="addMaintenanceBtn" class="btn btn-primary">+ Catat Maintenance</button>
+  <button id="printBtn" class="btn">Cetak</button><button id="resetBtn" class="btn">Reset Data</button><button id="themeBtn" class="btn">Tema</button>
+ </div>
+</header>
+<main class="page">
+ <div class="notice" id="dataNotice"></div>
+ <section class="kpi-grid" id="kpiGrid"></section>
+ <section class="panel-grid">
+  <article class="panel"><div class="panel-heading"><h2>Gangguan per Peralatan</h2></div><div id="chartFailures" class="chart-list"></div></article>
+  <article class="panel"><div class="panel-heading"><h2>Downtime per Peralatan (jam)</h2></div><div id="chartDowntime" class="chart-list"></div></article>
+  <article class="panel"><div class="panel-heading"><h2>Komponen yang Diganti</h2></div><div id="chartParts" class="chart-list"></div></article>
+  <article class="panel"><div class="panel-heading"><h2>Jadwal Preventive Maintenance</h2></div><div id="pmSchedule" class="schedule-list"></div></article>
+ </section>
+ <section class="panel history-panel">
+  <div class="panel-heading history-head"><div><h2>Riwayat Maintenance</h2><p class="panel-note">Riwayat corrective & preventive maintenance</p></div><div class="record-count" id="recordCount"></div></div>
+  <div class="toolbar"><input id="searchInput" type="search" placeholder="Cari peralatan, gangguan, penyebab, tindakan…"><select id="equipmentFilter"><option value="">Semua peralatan</option></select><select id="typeFilter"><option value="">Semua jenis</option><option value="CM">CM</option><option value="PM">PM</option></select><button id="exportBtn" class="btn">Export CSV</button></div>
+  <div class="table-wrap"><table><thead><tr><th>No</th><th>Tanggal</th><th>Peralatan</th><th>Jenis</th><th>Gangguan</th><th>Penyebab</th><th>Tindakan</th><th>Suku Cadang</th><th>Respons</th><th>Downtime</th><th>Biaya</th><th>Pelaksana</th><th>Verifikasi</th><th>Berikutnya</th><th>Aksi</th></tr></thead><tbody id="historyBody"></tbody></table></div>
+ </section>
+</main>
+<dialog id="maintenanceDialog"><form id="maintenanceForm">
+ <div class="dialog-head"><div><h2 id="formTitle">Catat Maintenance</h2><p class="panel-note">Isi detail kegiatan maintenance</p></div><button type="button" class="icon-btn" id="closeDialogBtn">×</button></div>
+ <div class="form-grid">
+  <label class="full">Peralatan<select id="equipmentInput" required></select></label>
+  <label>Tanggal<input id="dateInput" type="date" required></label><label>Jenis<select id="typeInput"><option>CM</option><option>PM</option></select></label>
+  <label class="full">Gangguan / Kondisi<input id="conditionInput" required></label><label class="full">Penyebab<input id="causeInput"></label><label class="full">Tindakan<input id="actionInput" required></label>
+  <label>Suku Cadang<input id="partsInput"></label><label>Pelaksana<input id="personInput"></label>
+  <label>Respons (jam)<input id="responseInput" type="number" min="0" step="0.1" value="0"></label><label>Downtime (jam)<input id="downtimeInput" type="number" min="0" step="0.1" value="0"></label>
+  <label>Biaya (Rp)<input id="costInput" type="number" min="0" step="1000" value="0"></label><label>Verifikasi<select id="verificationInput"><option>Normal</option><option>Perbaikan</option></select></label><label class="full">Pemeriksaan berikutnya<input id="nextDateInput" type="date"></label>
+ </div>
+ <div class="dialog-footer"><button type="button" id="cancelBtn" class="btn">Batal</button><button type="submit" class="btn btn-primary">Simpan</button></div>
+</form></dialog>
+<script type="module" src="./app.js"></script>
+</body></html>

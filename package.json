@@ -1,0 +1,9 @@
+{
+  "name": "gardena-maintenance-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node tests/smoke-check.mjs"
+  }
+}
